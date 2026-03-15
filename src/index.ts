@@ -127,12 +127,16 @@ carsApi.delete("/:id", async (c) => {
 
 app.route("/api/cars", carsApi);
 
-serve(
-  {
-    fetch: app.fetch,
-    port: process.env.PORT ? parseInt(process.env.PORT) : 8080,
-  },
-  (info) => {
-    console.log(`Server is running on http://localhost:${info.port}`);
-  }
-);
+export default app;
+
+if (process.env.NODE_ENV !== "test") {
+  serve(
+    {
+      fetch: app.fetch,
+      port: process.env.PORT ? parseInt(process.env.PORT) : 8080,
+    },
+    (info) => {
+      console.log(`Server is running on http://localhost:${info.port}`);
+    }
+  );
+}
